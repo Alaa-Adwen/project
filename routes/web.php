@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,5 +24,15 @@ route::post('/about', function(){
         '3' => 'Sales',
     ];
     return view(view: 'about',data: ['name' => $name , 'departments' => $departments]);
+});
+
+Route::get(uri: 'tasks', action: function(){
+    return view(view: 'tasks');
+});
+
+Route::post(uri: 'create', action: function(){
+    $task_name = $_POST['name'];
+    DB::table(table: 'tasks')->insert(values: ['name' => $task_name]);
+    return view(view: 'tasks');
 });
 
